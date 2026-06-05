@@ -4,10 +4,13 @@ const {
   HandleGetMenu,
   HandleAddMenuItem,
   HandleDeleteMenuItem,
+  HandleGetItemByTaste
 } = require("../controllers/menu");
 
-router.get("/menu", HandleGetMenu);
-router.post("/menu", HandleAddMenuItem);
-router.delete("/menu/:id", HandleDeleteMenuItem);
+router.get("/", HandleGetMenu);
+router.post("/", HandleAddMenuItem);
+router.delete("/:id", HandleDeleteMenuItem);
+router.get("/:tasteType", HandleGetItemByTaste);
+
 
 module.exports = router;

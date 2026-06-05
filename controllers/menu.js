@@ -44,9 +44,32 @@ async function HandleDeleteMenuItem(req, res) {
           .json({ error: "An error occurred while deleting the menu item." });
     }
 }
+async function HandleGetItemByTaste(req,res) {
+    try {
+        const tasteType = req.params.tasteType;
+        const validtasteTypes = Menu.schema.path("taste").enumValues; 
+    
+        if (!validtasteTypes.includes(tasteType)) {
+          return res.status(400).json({
+            error: `Invalid taste type. Must be one of: ${validtasteTypes.join(
+              ", "
+            )}`,
+          });
+        }
+        const taste = await Menu.find({ taste: tasteType });
+        res.status(200).json(taste);
+      } catch (error) {
+        console.error("Error fetching menu by taste:", error);
+        res
+          .status(500)
+          .json({ error: "An error occurred while fetching menu." });
+      }
+    }
+    
 
 module.exports = {
     HandleGetMenu,
     HandleAddMenuItem,
     HandleDeleteMenuItem,
+    HandleGetItemByTaste
 };
