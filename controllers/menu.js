@@ -66,10 +66,36 @@ async function HandleGetItemByTaste(req,res) {
       }
     }
     
+async function HandleUpdateMenuData(req,res){
+  try{
+    const menuId = req.params.id;
+    const menuUpdatedData=req.body;
+
+    const menuUpdate = await Menu.findByIdAndUpdate(menuId,menuUpdatedData,{
+      new:true,
+      runValidators:true,
+    })
+    if (!menuUpdate) {
+      return res.status(404).json({ error: 'Menu Item not found' });
+    }
+
+    console.log('data updated');
+    res.status(200).json(menuUpdate);
+
+  }catch(error) {
+    console.error("Error while updating the menu :", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating menu." });
+  }
+
+
+  }
 
 module.exports = {
     HandleGetMenu,
     HandleAddMenuItem,
     HandleDeleteMenuItem,
-    HandleGetItemByTaste
+    HandleGetItemByTaste,
+    HandleUpdateMenuData,
 };

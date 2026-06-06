@@ -9,7 +9,7 @@ const { HandleHotelHome,
 } = require('../controllers/person');
 
 router.get('/', HandleHotelHome);
-router.get('/all', HandleGetAllPersons);  // ← changed to /all
+router.get('/all', HandleGetAllPersons);
 router.get('/:workType', HandleGetPersonByWork);
 router.post('/', HandleNewPerson);
 router.put('/:id', HandleUpdatePersonData);
