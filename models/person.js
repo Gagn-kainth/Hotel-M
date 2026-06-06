@@ -49,6 +49,6 @@ const personSchema = new mongoose.Schema({
 });
 
 // Create a model from the schema
-const Person = mongoose.model("Person", personSchema);
+const person = mongoose.model("Person", personSchema);
 
-module.exports = Person;
+module.exports = person;

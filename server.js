@@ -5,11 +5,11 @@ const db = require('./db');
 const personRoutes = require('./routes/person');
 const menuroutes = require('./routes/menu');
 const bodyParser = require('body-parser');
+const port = process.env.port || 3000;
 
 
 app.use(bodyParser.json());// Middleware to parse JSON request bodies
 
-const port = 3000;
 
 app.use("/person",personRoutes);
 app.use('/menu',menuroutes)

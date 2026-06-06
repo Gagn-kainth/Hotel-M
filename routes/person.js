@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { HandleHotelHome,
+const { 
     HandleNewPerson,
     HandleGetAllPersons,
     HandleGetPersonByWork,
@@ -8,7 +8,7 @@ const { HandleHotelHome,
     HandleDeletePerson,
 } = require('../controllers/person');
 
-router.get('/', HandleHotelHome);
+
 router.get('/all', HandleGetAllPersons);
 router.get('/:workType', HandleGetPersonByWork);
 router.post('/', HandleNewPerson);
