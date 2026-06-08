@@ -1,7 +1,6 @@
-
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
-// Define a schema for the person collection
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -14,41 +13,50 @@ const personSchema = new mongoose.Schema({
   work: {
     type: String,
     required: true,
-    enum: [
-      "chef",
-      "waiter",
-      "manager",
-      "receptionist",
-    ],
+    enum: ["chef", "waiter", "manager", "receptionist"],
   },
   mobile: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   address: {
     type: String,
-    required: true
+    required: true,
   },
   salary: {
     type: Number,
-    required: true
+    required: true,
   },
-  username:{
-    required:true,
-    type : String
+  username: {
+    type: String,
+    required: true,
   },
-  password:{
-    type:String,
-    required:true
-  }
+  password: {
+    type: String,
+    required: true,
+  },
 });
 
-// Create a model from the schema
-const person = mongoose.model("Person", personSchema);
+// ✅ async with NO next parameter
+personSchema.pre("save", async function () {
+  const person = this;
 
-module.exports = person;
+  if (!person.isModified("password")) return; // ✅ plain return, no next()
+
+  const salt = await bcrypt.genSalt(10);
+  person.password = await bcrypt.hash(person.password, salt);
+  // ✅ no next() — Mongoose awaits the Promise automatically
+});
+
+personSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password); // ✅ throws on error naturally
+};
+
+const Person = mongoose.model("Person", personSchema);
+
+module.exports = Person;
