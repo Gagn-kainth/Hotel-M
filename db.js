@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
-require('dotenv').config();
+require("dotenv").config();
 
-// const mongoURL = "mongodb://localhost:27017/Hotel_M";
- mongoURL='process.env.mongoURL';
+ const mongoURL = "mongodb://localhost:27017/Hotel_M";
+//const mongoURL = "process.env.mongoURL";
 
-mongoose.connect(process.env.mongoURL)
+mongoose
+  .connect(process.env.mongoURL, {
+    tls: true,
+    tlsAllowInvalidCertificates: true,
+  })
   .then(() => console.log("MongoDB Connected "))
   .catch((err) => console.error("Connection failed ", err));
 

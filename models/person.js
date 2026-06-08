@@ -18,14 +18,7 @@ const personSchema = new mongoose.Schema({
       "chef",
       "waiter",
       "manager",
-      "housekeeping",
       "receptionist",
-      "security",
-      "maintenance",
-      "event coordinator",
-      "cleaning staff",
-      "accountant",
-      "hr",
     ],
   },
   mobile: {
@@ -44,8 +37,15 @@ const personSchema = new mongoose.Schema({
   salary: {
     type: Number,
     required: true
+  },
+  username:{
+    required:true,
+    type : String
+  },
+  password:{
+    type:String,
+    required:true
   }
-
 });
 
 // Create a model from the schema

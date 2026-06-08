@@ -6,9 +6,11 @@ const {
     HandleGetPersonByWork,
     HandleUpdatePersonData,
     HandleDeletePerson,
+    HandleHotelHome,
 } = require('../controllers/person');
 
 
+router.get('/',HandleHotelHome)
 router.get('/all', HandleGetAllPersons);
 router.get('/:workType', HandleGetPersonByWork);
 router.post('/', HandleNewPerson);

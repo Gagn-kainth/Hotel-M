@@ -1,5 +1,10 @@
 const Person = require("../models/person");
 
+
+async function HandleHotelHome(req, res) {
+res.send("Welcome to the Hotel M. How may I assist you?");
+}
+
 async function HandleNewPerson(req, res) {
   try {
     const data = req.body;
@@ -92,6 +97,7 @@ async function HandleDeletePerson(req, res) {
 
 
 module.exports = {
+  HandleHotelHome,
   HandleNewPerson,
   HandleGetAllPersons,
   HandleGetPersonByWork,
