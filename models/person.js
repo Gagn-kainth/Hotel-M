@@ -42,19 +42,19 @@ const personSchema = new mongoose.Schema({
   },
 });
 
-// ✅ async with NO next parameter
+//  async with NO next parameter
 personSchema.pre("save", async function () {
   const person = this;
 
-  if (!person.isModified("password")) return; // ✅ plain return, no next()
+  if (!person.isModified("password")) return; // plain return, no next()
 
   const salt = await bcrypt.genSalt(10);
   person.password = await bcrypt.hash(person.password, salt);
-  // ✅ no next() — Mongoose awaits the Promise automatically
+  // no next() — Mongoose awaits the Promise automatically
 });
 
 personSchema.methods.comparePassword = async function (candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password); // ✅ throws on error naturally
+  return await bcrypt.compare(candidatePassword, this.password); // throws on error naturally
 };
 
 const Person = mongoose.model("Person", personSchema);
